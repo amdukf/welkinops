@@ -1,0 +1,18 @@
+site_name: Welkinops Docs
+
+nav:
+  - Home: index.md
+
+theme:
+  name: material
+  features:
+  - navigation.indexes
+  - navigation.path
+  - navigation.tabs
+  - navigation.top
+markdown_extensions:
+- pymdownx.tasklist:
+    custom_checkbox: true
+- toc:
+    permalink: true
+

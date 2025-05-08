@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  welkinops-docs:
+    build:
+      context: .
+      dockerfile: Dockerfile 
+    container_name: welkinops-docs
+    ports:
+      - "127.0.0.1:8006:80" 
+    restart: always
+    volumes:
+      - ./:/docs 
