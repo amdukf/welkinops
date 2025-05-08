@@ -1,5 +1,5 @@
 # Use the official Python base image
-FROM squidfunk/mkdocs-material
+FROM squidfunk/mkdocs-material as package-installation
 
 # Set the working directory in the container
 WORKDIR /app
