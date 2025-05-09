@@ -10,13 +10,13 @@
 Welcome to the welkinops documentation! This documentation provides detailed information about DevOps. Whether you're a developer, user, or contributor, you'll find everything you need to know here.
 
 ## Development
-Learn how to contribute to welkinops's projects and services. You can also find information about our development processes and how to get started.
+Learn how to contribute to projects and services. You can also find information about our development processes and how to get started.
 
 ## DevOps
-Learn how to deploy and manage welkinops's services and applications. You can also find information about our DevOps processes like CI/CD, monitoring, and more.
+Learn how to deploy and manage services and applications. You can also find information about DevOps processes like CI/CD, monitoring, and more.
 
 ## Infrastructure
-Learn how to manage welkinops's infrastructure. You can also find information about our infrastructure processes like networking, security, and more.
+Learn how to manage infrastructure. You can also find information about our infrastructure processes like networking, security, and more.
 
 ## Operational Notes
 This section documents real-world issues encountered and Incident while running, along with resolutions and useful operational tips. It serves as a lightweight runbook to help debug faster and avoid repeat mistakes.
