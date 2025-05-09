@@ -1,11 +1,24 @@
 version: '3'
 
 services:
-  welkinops-docs:
-    build:
-      context: .
-      dockerfile: Dockerfile 
+  mkdocs:
+    image: amirmkh/welkinops:latest
     container_name: welkinops-docs
+    restart: unless-stopped
     ports:
       - "127.0.0.1:8006:80" 
-    restart: always
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --label-enable --cleanup --interval 60
+
+
+          
