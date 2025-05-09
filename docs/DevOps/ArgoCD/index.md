@@ -5,4 +5,4 @@
 ## Table of Contents
 - [Installation](installation.md)
 - [Cluster Bootstrapping](cluster-bootstrapping.md)
-- [Current Deployments](current-deployments.md)
+- [Current Deployments](kubernetes-kubespray.md)
