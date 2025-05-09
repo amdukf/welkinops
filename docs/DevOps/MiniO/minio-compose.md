@@ -14,9 +14,10 @@ Before proceeding, ensure the following prerequisites are met:
 
 1. Create a directory for your MinIO and Traefik setup:
 
-   ```bash
+```
    mkdir minio-traefik
    cd minio-traefik
+```
 2. Create docker-compose.yaml file in the minio-traefik directory
 ```
 version: "3.3"
