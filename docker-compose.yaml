@@ -10,6 +10,17 @@ services:
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
 
+  oauth2-proxy:
+    image: quay.io/oauth2-proxy/oauth2-proxy:latest
+    container_name: oauth2-proxy
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:4180:4180"
+    env_file:
+      - .env
+    volumes:
+      - ./emails.txt:/etc/oauth2-proxy/emails.txt
+
   watchtower:
     image: containrrr/watchtower
     container_name: watchtower
@@ -20,5 +31,3 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     command: --label-enable --cleanup --interval 60
 
-
-          
