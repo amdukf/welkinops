@@ -20,6 +20,7 @@ Inside the UTM vm directory (for example, Ubuntu_server_24.04.utm), create a fil
 
 now this is the structure:
 
+```
 .
 ├── box.utm
 │   ├── Data
@@ -28,7 +29,7 @@ now this is the structure:
 │   ├── config.plist
 │   └── screenshot.png
 └── metadata.json
-
+```
 
 > This file is required by Vagrant to recognize and use the box correctly.
 
