@@ -3,6 +3,8 @@ site_name: Welkinops Docs
 theme:
   name: material
   logo: assets/logo.png
+  extra_css:
+    - assests/extra.css
   favicon: assests/logo.png
 
   features:

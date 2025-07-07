@@ -1,0 +1,4 @@
+.md-header-nav__title img {
+  max-height: 30px;  /* Adjust height as needed */
+  width: auto;
+}
