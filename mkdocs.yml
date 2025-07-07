@@ -1,33 +1,28 @@
 site_name: Welkinops Docs
+
 theme:
   name: material
   features:
-  - navigation.indexes
-  - navigation.path
-  - navigation.tabs
-  - navigation.top
-
-  palette: 
-    # Palette toggle for light mode
+    - navigation.indexes
+    - navigation.path
+    - navigation.tabs
+    - navigation.top
+  palette:
     - scheme: default
       toggle:
         icon: material/lightbulb
         name: Switch to dark mode
-
-    # Palette toggle for dark mode
     - scheme: slate
       toggle:
         icon: material/lightbulb-outline
         name: Switch to light mode
 
 markdown_extensions:
+  - toc:
+      permalink: true
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.copybutton
   - pymdownx.highlight
   - pymdownx.superfences
   - pymdownx.emoji
-  - toc:
-      permalink: true
-
-
