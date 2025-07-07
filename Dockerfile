@@ -7,6 +7,10 @@ WORKDIR /app
 # Copy the MkDocs project to the working directory
 COPY . .
 
+# Install pymdown-extensions explicitly
+RUN pip install --no-cache-dir pymdown-extensions
+
+
 # Build the MkDocs project
 RUN mkdocs build --site-dir public
 
