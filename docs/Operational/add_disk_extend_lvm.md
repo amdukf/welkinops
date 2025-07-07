@@ -1,11 +1,11 @@
 
-# 📘 Add and Extend Disk with LVM in Linux
+# Add and Extend Disk with LVM in Linux
 
 This guide explains how to add a new disk to a Linux system, format it, join it to an existing Volume Group (VG), and extend the Logical Volume (LV) accordingly.
 
 ---
 
-## 🧱 Step 1: View Available Disks
+## Step 1: View Available Disks
 
 ```bash
 lsblk
@@ -15,7 +15,7 @@ lsblk
 
 ---
 
-## 🛠️ Step 2: Partition the New Disk
+## Step 2: Partition the New Disk
 
 ```bash
 fdisk /dev/vdb
@@ -32,7 +32,7 @@ This will create `/dev/vdb1`.
 
 ---
 
-## ➕ Step 3: Extend the Volume Group
+## Step 3: Extend the Volume Group
 
 ```bash
 vgextend ubuntu-vg /dev/vdb1
@@ -42,7 +42,7 @@ vgextend ubuntu-vg /dev/vdb1
 
 ---
 
-## 📊 Step 4: Verify VG and LV
+## Step 4: Verify VG and LV
 
 ```bash
 vgs
@@ -53,7 +53,7 @@ lvs
 
 ---
 
-## 📏 Step 5: Extend the Logical Volume
+## Step 5: Extend the Logical Volume
 
 ```bash
 lvextend /dev/ubuntu-vg/ubuntu-lv /dev/vdb1
@@ -63,7 +63,7 @@ lvextend /dev/ubuntu-vg/ubuntu-lv /dev/vdb1
 
 ---
 
-## 🔄 Step 6: Resize the Filesystem
+## Step 6: Resize the Filesystem
 
 ```bash
 resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
@@ -73,4 +73,4 @@ resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
 
 ---
 
-✅ Done! You’ve successfully added a new disk and extended your LVM volume.
+Done! You’ve successfully added a new disk and extended your LVM volume.

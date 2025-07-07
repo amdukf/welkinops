@@ -45,7 +45,7 @@ tar -czvf ubuntu-server-24.04.box -C Ubuntu_server_24.04.utm .
 
 This will create a `ubuntu-server-24.04.box` file that includes both `box.utm` and `metadata.json`.
 
-### ✅ Verify the contents:
+### Verify the contents:
 
 ```bash
 tar -tf ubuntu-server-24.04.box
@@ -118,6 +118,6 @@ vagrant ssh
 
 ---
 
-## ✅ Done
+## Done
 
 Your Ubuntu Server 24.04 VM is now fully portable as a Vagrant `.box` and ready for use in any project using the `vagrant-utm` provider.

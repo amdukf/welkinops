@@ -1,11 +1,11 @@
 
-# 📘 Add and Mount a Non-LVM Partition to /mnt
+# Add and Mount a Non-LVM Partition to /mnt
 
 This guide explains how to create a new partition on a disk, format it, mount it to `/mnt`, and make the mount persistent using `/etc/fstab`.
 
 ---
 
-## 🛠️ Step 1: Partition the Disk
+## Step 1: Partition the Disk
 
 ```bash
 fdisk /dev/vdb
@@ -22,7 +22,7 @@ This will create `/dev/vdb2`.
 
 ---
 
-## 🧱 Step 2: Format the New Partition
+## Step 2: Format the New Partition
 
 ```bash
 mkfs.ext4 /dev/vdb2
@@ -32,7 +32,7 @@ mkfs.ext4 /dev/vdb2
 
 ---
 
-## 📂 Step 3: Mount the Partition
+## Step 3: Mount the Partition
 
 ```bash
 mount /dev/vdb2 /mnt
@@ -42,7 +42,7 @@ mount /dev/vdb2 /mnt
 
 ---
 
-## 🔄 Step 4: Make the Mount Persistent
+## Step 4: Make the Mount Persistent
 
 First, get the UUID of the partition:
 
@@ -60,7 +60,7 @@ Replace `xxxx-xxxx` with the actual UUID found via `blkid`.
 
 ---
 
-## ✅ Step 5: Test the fstab Entry
+## Step 5: Test the fstab Entry
 
 ```bash
 mount -a
@@ -70,4 +70,4 @@ mount -a
 
 ---
 
-🎉 Done! The new partition is now mounted to `/mnt` and will persist across reboots.
+Done! The new partition is now mounted to `/mnt` and will persist across reboots.
