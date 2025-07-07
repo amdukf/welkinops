@@ -21,8 +21,13 @@ theme:
         name: Switch to light mode
 
 markdown_extensions:
-- pymdownx.tasklist:
-    custom_checkbox: true
-- toc:
-    permalink: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.copybutton
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.emoji
+  - toc:
+      permalink: true
+
 
