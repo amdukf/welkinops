@@ -17,7 +17,7 @@ theme:
     # Palette toggle for dark mode
     - scheme: slate
       toggle:
-        icon: mmaterial/lightbulb-outline
+        icon: material/lightbulb-outline
         name: Switch to light mode
 
 markdown_extensions:
