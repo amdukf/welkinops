@@ -9,6 +9,7 @@ theme:
     - navigation.path
     - navigation.tabs
     - navigation.top
+    - content.code.copy
   palette:
     - scheme: default
       toggle:
@@ -24,7 +25,6 @@ markdown_extensions:
       permalink: true
   - pymdownx.tasklist:
       custom_checkbox: true
-  - pymdownx.copybutton
   - pymdownx.highlight
   - pymdownx.superfences
   - pymdownx.emoji
