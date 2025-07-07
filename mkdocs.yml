@@ -2,6 +2,8 @@ site_name: Welkinops Docs
 
 theme:
   name: material
+  logo: assets/logo.png
+
   features:
     - navigation.indexes
     - navigation.path
