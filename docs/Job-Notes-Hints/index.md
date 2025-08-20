@@ -1,13 +1,13 @@
 > ⚠️ Note: These are internal notes primarily for personal use and may include shorthand, assumptions, or environment-specific details.
 
 ## 📂 Table of Contents
-- [🧭 Monitoring](#-monitoring)
-- [🚀 Deployment](#-deployment)
-- [☸️ Kubernetes](#-kubernetes)
-- [🌐 Networking](#-networking)
-- [🛠️ Troubleshooting](#-troubleshooting)
-- [⚙️ Common Commands](#-common-commands)
-- [📦 Miscellaneous](#-miscellaneous)
+- [🧭 Monitoring](#🧭-monitoring)
+- [🚀 Deployment](#🚀-deployment)
+- [☸️ Kubernetes](#☸️-kubernetes)
+- [🌐 Networking](#🌐-networking)
+- [🛠️ Troubleshooting](#🛠️-troubleshooting)
+- [⚙️ Common Commands](#⚙️-common-commands)
+- [📦 Miscellaneous](#📦-miscellaneous)
 
 # 🧭 Monitoring
 
