@@ -1,15 +1,15 @@
 > ⚠️ Note: These are internal notes primarily for personal use and may include shorthand, assumptions, or environment-specific details.
 
 ## 📂 Table of Contents
-- [🧭 Monitoring](#🧭-monitoring)
-- [🚀 Deployment](#🚀-deployment)
-- [☸️ Kubernetes](#☸️-kubernetes)
-- [🌐 Networking](#🌐-networking)
-- [🛠️ Troubleshooting](#🛠️-troubleshooting)
-- [⚙️ Common Commands](#⚙️-common-commands)
-- [📦 Miscellaneous](#📦-miscellaneous)
+- [🧭 Monitoring](#-monitoring)
+- [🚀 Deployment](#-deployment)
+- [☸️ Kubernetes](#-kubernetes)
+- [🌐 Networking](#-networking)
+- [🛠️ Troubleshooting](#-troubleshooting)
+- [⚙️ Common Commands](#-common-commands)
+- [📦 Miscellaneous](#-miscellaneous)
 
-# 🧭 Monitoring
+# Monitoring
 
 **Problem:** Alertmanager shows cluster status as "disabled"  
 **Solution:** For fixing alertmanager cluster status disable problem in alertmanager UI, you should increase the replica to upper than 2
@@ -17,12 +17,12 @@
 **Problem:** Some Dashboards showing no data or anything else  
 **Solution:** You should check json of the dashboard to check expression, maybe some expressions dont't match with ours, check with prometheus (Query that)
 
-# 🚀 Deployment
+# Deployment
 
 **Title:** Connecting apps (projects) in the gitlab to argocd
 **Solution:** For connecting apps (projects) in the gitlab to argocd, we should at first create a app in argocd (apps of apps) an apps of project, apps of project is for creating the project for the apps in the argocd, and apps of apps is for creating the group of apps (front-end ann back-end cluster apps).
 
-# ☸️ Kubernetes
+# Kubernetes
 
 **Problem:** K3S Says k8s not up and running  
 **Solution:** export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
@@ -45,13 +45,13 @@
 **Problem:** Sentry's redis problem  
 **Solution:** If the redis of sentry degraded and want resource tells us OOMKILLED, and if give resource but it doesnt't work, one way is to delete the redis-replica-pvc and it will be fixed  
 
-# ⚙️ Common Commands
+# Common Commands
 
 **Problem:** Set a policy for harbor to delete image  
 **Solution:** If we want to set a policy for harbor to delete old images, at first we should go to that project, then on the policy section, we should add (retain the most recently pushed #artifacts) and (retain the most recently pulled #artifacts) with the count of 5 and uncheck untagged artifacts (and dryrun, then run)
 with this, the harbor put the images in the trash if we want to delete them from the disk, we go to clean up and set the garbage collection schedule to GC to hourly, and then GC now.
 
-# 📦 Miscellaneous
+# Miscellaneous
 
 **Title:** Get backup from jira  
 **Solution:** If you want to get backup from jira, at first get backup from the jira system panel, the get a full backup from the PVC
