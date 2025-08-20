@@ -19,7 +19,7 @@
 
 # Deployment
 
-**Title:** Connecting apps (projects) in the gitlab to argocd
+**Title:** Connecting apps (projects) in the gitlab to argocd  
 **Solution:** For connecting apps (projects) in the gitlab to argocd, we should at first create a app in argocd (apps of apps) an apps of project, apps of project is for creating the project for the apps in the argocd, and apps of apps is for creating the group of apps (front-end ann back-end cluster apps).
 
 # Kubernetes
