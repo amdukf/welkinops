@@ -26,3 +26,6 @@ This section documents real-world issues encountered and Incident while running,
 
 ## Job Notes & Hints
 This Markdown file contains personal notes, tips, and technical hints collected from my daily work. It's intended as a quick reference for commonly encountered issues, best practices, and useful commands or processes related to my role. The content is regularly updated as I learn and encounter new challenges.
+
+## Troubleshooting
+This Markdown file contains Troubleshooting.
