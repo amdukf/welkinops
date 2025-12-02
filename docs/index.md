@@ -6,6 +6,7 @@
 - [Infrastructure](Infrastructure/index.md)
 - [Operational Notes](Operational/index.md)
 - [Job Notes & Hints](Job-Notes-Hints/index.md)
+- [Troubleshooting](Troubleshooting/index.md)
 
 ## Introduction
 Welcome to the welkinops documentation! This documentation provides detailed information about DevOps. Whether you're a developer, user, or contributor, you'll find everything you need to know here.

@@ -1,6 +1,6 @@
 > ⚠️ Note: These are internal notes primarily for personal use and may include shorthand, assumptions, or environment-specific details.
 
-## 📂 Table of Contents
+## Table of Contents
 - [Monitoring](#monitoring)
 - [Deployment](#deployment)
 - [Kubernetes](#kubernetes)
