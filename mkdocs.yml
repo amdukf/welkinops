@@ -2,12 +2,13 @@ site_name: Welkinops Docs
 
 repo_name: amdukf/welkinops
 repo_url: https://github.com/amdukf/welkinops
+edit_uri: edit/main/docs/
 
 theme:
   name: material
   logo: assets/logo.png
   font:
-    text: Ubuntu
+    text: Roboto
 
   features:
     - navigation.indexes
