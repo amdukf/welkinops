@@ -1,4 +1,4 @@
-# xfs enforce UUID
+# Xfs enforce UUID
 
 This issue occurs when mounting an LVM snapshot of an XFS filesystem.
 XFS enforces filesystem UUID uniqueness at mount time.
