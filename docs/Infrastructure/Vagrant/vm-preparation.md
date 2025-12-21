@@ -10,7 +10,7 @@ This guide walks through preparing an Ubuntu Server 24.04 virtual machine in [UT
 - **System:** Ubuntu Server 24.04 ISO
 - **VM Type:** Virtualized (not emulated)
 
-### ⚙️ Configuration
+### Configuration
 
 | Setting                  | Value                             |
 |--------------------------|-----------------------------------|
