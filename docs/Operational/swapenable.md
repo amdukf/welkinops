@@ -44,8 +44,8 @@ sudo nano /etc/fstab
 
 The swappiness parameter tells Linux how aggressively it should use swap instead of RAM.
 It’s a value between 0 and 100:
-0 → avoid swap as much as possible (use RAM first)
-100 → swap very aggressively, even if RAM isn’t full
+- 0 → avoid swap as much as possible (use RAM first)
+- 100 → swap very aggressively, even if RAM isn’t full
 
 You can check your system’s current swappiness with this command:
 ```
