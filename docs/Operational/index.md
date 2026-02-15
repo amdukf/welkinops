@@ -14,3 +14,4 @@ Keep it simple. Keep it useful.
 - [Xfs enforce UUID](xfsuuid.md)
 - [ERR_TOO_MANY_REDIRECTS Issue with Cloudflare and How to Fix It](rdc.md)
 - [Renewing certbot certificate](certbotrenew.md)
+- [Enable Swap](swapenable.md)
