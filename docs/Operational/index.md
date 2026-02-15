@@ -13,3 +13,4 @@ Keep it simple. Keep it useful.
 - [Import redis rdb backup when aof is active](redis-rdb-backup.md)
 - [Xfs enforce UUID](xfsuuid.md)
 - [ERR_TOO_MANY_REDIRECTS Issue with Cloudflare and How to Fix It](rdc.md)
+- [Renewing certbot certificate](certbotrenew.md)
