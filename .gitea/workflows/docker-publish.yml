@@ -12,7 +12,7 @@ on:
 
 jobs:
   build-and-push:
-    runs-on: docker.arvancloud.ir/ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repo
