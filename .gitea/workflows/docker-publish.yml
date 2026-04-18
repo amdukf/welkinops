@@ -1,0 +1,37 @@
+name: Build and Publish MkDocs Docker Image on Gitea
+
+on:
+  push:
+    branches:
+      - main  # or your default branch
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - '.gitea/workflows/docker-publish.yml'
+      - 'Dockerfile'
+
+jobs:
+  build-and-push:
+    runs-on: docker.arvancloud.ir/ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Login to Gitea Container Registry
+        run: |
+          echo "${{ secrets.REGISTRY_TOKEN }}" | \
+            docker login ${{ secrets.REGISTRY_URL }} \
+            -u ${{ secrets.REGISTRY_USERNAME }} \
+            --password-stdin
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.GITEA_REGISTRY_URL }}/amdukf/welkinops-mkdocs:latest
