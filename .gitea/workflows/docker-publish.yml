@@ -12,7 +12,7 @@ on:
 
 jobs:
   build-and-push:
-    runs-on: runner-images:ubuntu-latest
+    runs-on: docker.arvancloud.ir/gitea/runner-images:ubuntu-latest
 
     steps:
       - name: Checkout repo
