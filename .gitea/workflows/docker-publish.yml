@@ -1,5 +1,15 @@
 name: Build and Publish MkDocs Docker Image for Gitea
 
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
+      - '.github/workflows/docker-publish.yml'
+      - 'Dockerfile'
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
