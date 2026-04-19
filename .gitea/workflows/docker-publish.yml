@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Clone repo manually
         run: |
-          git clone http://${{ secrets.GIT_USERNAME }}:${{ secrets.GIT_TOKEN }}@${{ secrets.REGISTRY_URL }}/amdukf/welkinops.git .
+          git clone https://${{ secrets.GIT_USERNAME }}:${{ secrets.GIT_TOKEN }}@${{ secrets.REGISTRY_URL }}/amdukf/welkinops.git .
       
       - name: Login to registry
         run: |
