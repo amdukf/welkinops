@@ -1,4 +1,4 @@
-name: Build and Publish MkDocs Docker Image on Gitea
+name: Build and Publish MkDocs Docker Image for Gitea
 
 on:
   push:
@@ -15,26 +15,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Debug workspace
-        run: |
-          pwd
-          ls -la
       - name: Checkout repo
-        run: |
-          git clone http://${{ secrets.GITEA_REGISTRY_URL }}/amdukf/welkinops-mkdocs.git .
-          git checkout main
+        uses: .gitea/actions/checkout@v6
 
-      - name: Login to Registry
+      - name: Set up Docker Buildx
+        uses: .gitea/actions/setup-buildx-action@v6
+        
+      - name: Login to Gitea Container Registry
         run: |
           echo "${{ secrets.REGISTRY_TOKEN }}" | \
-          docker login ${{ secrets.REGISTRY_URL }} \
-          -u ${{ secrets.REGISTRY_USERNAME }} \
-          --password-stdin
+            docker login ${{ secrets.REGISTRY_URL }} \
+            -u ${{ secrets.REGISTRY_USERNAME }} \
+            --password-stdin
 
-      - name: Build Image
-        run: |
-          docker build -t ${{ secrets.GITEA_REGISTRY_URL }}/amdukf/welkinops-mkdocs:latest .
-
-      - name: Push Image
-        run: |
-          docker push ${{ secrets.GITEA_REGISTRY_URL }}/amdukf/welkinops-mkdocs:latest
+      - name: Build and push
+        uses: .gitea/actions/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: amirmkh/welkinops:latest
