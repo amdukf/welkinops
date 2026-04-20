@@ -8,7 +8,7 @@ on:
       - 'docs/**'
       - 'mkdocs-ecorp.yml'
       - '.gitea/workflows/docker-publish.yml'
-      - 'Dockerfile'
+      - 'Dockerfile.ecorp'
 
 jobs:
   build-and-push:
@@ -29,7 +29,7 @@ jobs:
       - name: Build image
         run: |
           cd welkinops
-          docker build -t ${{ secrets.REGISTRY_URL }}/amdukf/welkinops:latest .
+          docker build -f Dockerfile.ecorp -t ${{ secrets.REGISTRY_URL }}/amdukf/welkinops:latest .
 
       - name: Push image
         run: |
