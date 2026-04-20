@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'docs/**'
-      - 'mkdocs.yml'
+      - 'mkdocs-ecorp.yml'
       - '.gitea/workflows/docker-publish.yml'
       - 'Dockerfile'
 
