@@ -2,7 +2,7 @@ site_name: Welkinops Docs
 
 repo_name: amdukf/welkinops
 repo_url: https://git.ecorp.kalekabab.ir
-edit_uri: edit/main/docs/
+edit_uri: amdukf/welkinops/_edit/main/docs/
 
 theme:
   name: material
