@@ -29,8 +29,8 @@ jobs:
       - name: Build image
         run: |
           cd welkinops
-          docker build -t ${{ secrets.REGISTRY_URL }}/amirmkh/welkinops:latest .
+          docker build -t ${{ secrets.REGISTRY_URL }}/amdukf/welkinops:latest .
 
       - name: Push image
         run: |
-          docker push ${{ secrets.REGISTRY_URL }}/amirmkh/welkinops:latest
+          docker push ${{ secrets.REGISTRY_URL }}/amdukf/welkinops:latest
