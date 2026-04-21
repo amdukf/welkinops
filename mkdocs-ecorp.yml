@@ -1,7 +1,7 @@
 site_name: Welkinops Docs
 
 repo_name: amdukf/welkinops
-repo_url: https://git.ecorp.kalekabab.ir
+repo_url: https://git.ecorp.kalekabab.ir/amdukf/welkinops
 edit_uri: amdukf/welkinops/_edit/main/docs/
 
 theme:
@@ -18,7 +18,7 @@ theme:
     - content.code.copy
     - navigation.footer
     - content.action.edit
-    - content.action.view
+
   palette:
     - scheme: default
       toggle:
