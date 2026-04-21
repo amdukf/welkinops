@@ -1,4 +1,3 @@
-
 # Add and Mount a Non-LVM Partition to /mnt
 
 This guide explains how to create a new partition on a disk, format it, mount it to `/mnt`, and make the mount persistent using `/etc/fstab`.

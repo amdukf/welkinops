@@ -1,4 +1,3 @@
-
 # Add and Extend Disk with LVM in Linux
 
 This guide explains how to add a new disk to a Linux system, format it, join it to an existing Volume Group (VG), and extend the Logical Volume (LV) accordingly.

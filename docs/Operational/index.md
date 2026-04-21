@@ -17,3 +17,5 @@ Keep it simple. Keep it useful.
 - [Enable Swap](swapenable.md)
 - [Git User chaning in local and global](guclg.md)
 - [Docker /var/lib/docker migration](docker-migrate.md)
+- [Gitea backup restore](gitea-restore.md)
+- [gpg commands](gpg-commands.md)

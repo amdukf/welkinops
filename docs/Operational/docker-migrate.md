@@ -1,55 +1,121 @@
 # Docker and Containerd Storage Migration to LVM
 
-## Problem Statement
+## 1. Problem Statement
 
 The root disk (20GB) was filling up because Docker images, containers, and volumes were stored on the root partition. The server had an external 20GB disk (vdb) configured as an LVM logical volume. The goal was to move all Docker and containerd data to the LVM volume to prevent the root disk from filling up.
 
-## Why This Was Necessary
+## 2. Understanding Docker and Containerd Storage
 
 Docker uses two separate storage locations:
-- /var/lib/docker - Docker metadata, container configurations, and volumes
-- /var/lib/containerd - Container image layers, snapshots, and overlay filesystem data
 
-Changing only Docker's data-root setting does not move containerd data. Containerd continued writing image layers to /var/lib/containerd on the root disk, causing disk usage to increase even after Docker was reconfigured.
+| Location | Purpose |
+|----------|---------|
+| `/var/lib/docker` | Docker metadata, container configurations, volumes, and network settings |
+| `/var/lib/containerd` | Container image layers, snapshots, and overlay filesystem data |
 
-## System Configuration
+Important: Changing only Docker's `data-root` setting does NOT move containerd data. Containerd continues writing image layers to `/var/lib/containerd` on the root disk, causing disk usage to increase even after Docker is reconfigured.
 
-Root disk: /dev/vda1 mounted at /
-External disk: /dev/vdb with LVM volume yellowstone-lv_docker mounted at /mnt/docker-data
+## 3. System Configuration
 
-## Step-by-Step Commands and Explanations
+| Component | Device | Mount Point | Size |
+|-----------|--------|-------------|------|
+| Root disk | `/dev/vda1` | `/` | 20GB |
+| External disk | `/dev/vdb` | N/A | 20GB |
+| LVM Volume | `/dev/mapper/yellowstone-lv_docker` | `/mnt/docker-data` | 20GB |
 
-### 1. Initial Assessment
+## 4. LVM Setup
+
+Install LVM tools if not already installed:
+
+```bash
+apt update
+apt install -y lvm2
+```
+
+Create physical volume and volume group:
+
+```bash
+pvcreate /dev/vdb
+vgcreate yellowstone /dev/vdb
+```
+
+Create logical volume using all available space:
+
+```bash
+lvcreate -l 100%FREE -n lv_docker yellowstone
+```
+
+Format the logical volume:
+
+```bash
+mkfs.ext4 /dev/yellowstone/lv_docker
+```
+
+Create mount point and mount:
+
+```bash
+mkdir -p /mnt/docker-data
+mount /dev/yellowstone/lv_docker /mnt/docker-data
+```
+
+Make mount permanent by adding to `/etc/fstab`:
+
+```bash
+# Get the UUID
+blkid /dev/yellowstone/lv_docker
+
+# Add to /etc/fstab (replace UUID with actual value)
+echo "UUID=your-uuid-here /mnt/docker-data ext4 defaults,nofail 0 2" >> /etc/fstab
+```
+
+Verify LVM setup:
+
+```bash
+lsblk
+df -h /mnt/docker-data
+```
+
+## 5. Migration Procedure
+
+### 5.1 Pre-Migration Checks
 
 Check current disk usage:
 
+```bash
 df -h
+```
 
-Purpose: Identify which filesystems are reaching capacity. Shows used space, available space, and mount points for all filesystems.
+Check current Docker storage location:
+
+```bash
+docker info | grep "Docker Root Dir"
+```
 
 Check block device layout:
 
+```bash
 lsblk
-
-Purpose: Display all block devices, partition layouts, LVM volumes, and current mount points. Confirms that LVM volume is available and correctly sized.
-
-Check Docker's current storage location:
-
-docker info | grep "Docker Root Dir"
-
-Purpose: Verify where Docker is configured to store its data. Should show /var/lib/docker by default.
-
-### 2. Configure Docker to Use LVM Volume
-
-Stop Docker daemon and related services:
-
-sudo systemctl stop docker docker.socket containerd
-
-Purpose: Ensure no write operations occur during migration. Stopping both Docker and containerd prevents data corruption.
-
-Create or edit Docker daemon configuration:
-
 ```
+
+### 5.2 Stop All Services
+
+Stop Docker and containerd to prevent writes during migration:
+
+```bash
+sudo systemctl stop docker docker.socket containerd
+```
+
+Verify services are stopped:
+
+```bash
+sudo systemctl status docker containerd
+```
+
+### 5.3 Configure Docker to Use LVM
+
+Create Docker daemon configuration:
+
+```bash
 sudo mkdir -p /etc/docker
 sudo tee /etc/docker/daemon.json << 'EOF'
 {
@@ -58,165 +124,230 @@ sudo tee /etc/docker/daemon.json << 'EOF'
 EOF
 ```
 
-Purpose: Set Docker's data root directory to the LVM mount point. This tells Docker to store all future data on the external disk.
+### 5.4 Move Docker Data to LVM
 
-### 3. Move Containerd Data to LVM
+Copy Docker data to LVM volume:
 
-The critical step that was initially missed. Containerd stores image layers and snapshots separately from Docker.
-
-Stop containerd service:
-
-sudo systemctl stop containerd
-
-Purpose: Prevent containerd from writing to disk during data migration.
-
-Create target directory on LVM:
-
-sudo mkdir -p /mnt/docker-data/containerd
-
-Purpose: Create the directory structure where containerd data will be stored on the LVM volume.
-
-Move containerd data to LVM:
-
+```bash
+sudo rsync -avxP /var/lib/docker/ /mnt/docker-data/
 ```
+
+Rename original directory as backup:
+
+```bash
+sudo mv /var/lib/docker /var/lib/docker.bak
+```
+
+### 5.5 Move Containerd Data to LVM
+
+Create containerd directory on LVM:
+
+```bash
+sudo mkdir -p /mnt/docker-data/containerd
+```
+
+Copy containerd data to LVM:
+
+```bash
 sudo rsync -avxP /var/lib/containerd/ /mnt/docker-data/containerd/
 ```
 
-Purpose: Copy all containerd data including image layers, snapshots, and metadata to the LVM volume. The flags preserve permissions, recursively copy directories, and show progress.
+Rename original directory as backup:
 
-Rename old containerd directory as backup:
-
+```bash
 sudo mv /var/lib/containerd /var/lib/containerd.bak
+```
 
-Purpose: Keep a backup in case the migration fails. This allows rollback without data loss.
+### 5.6 Reconfigure Containerd
 
 Generate default containerd configuration:
 
-```
+```bash
 sudo mkdir -p /etc/containerd
 sudo containerd config default | sudo tee /etc/containerd/config.toml
 ```
 
-Purpose: Create a default configuration file for containerd if one does not exist. This file controls containerd's behavior including storage paths.
+Edit the configuration to use LVM path:
 
-Edit containerd configuration to use LVM path:
-
+```bash
 sudo sed -i 's|root = ".*"|root = "/mnt/docker-data/containerd"|' /etc/containerd/config.toml
+```
 
-Purpose: Change the root directory setting in containerd config from default /var/lib/containerd to the LVM location.
+Verify the change:
 
-Alternative manual edit if sed command fails:
+```bash
+grep "^root" /etc/containerd/config.toml
+```
 
-sudo nano /etc/containerd/config.toml
+Expected output: `root = "/mnt/docker-data/containerd"`
 
-Find the line starting with root = and change it to:
-root = "/mnt/docker-data/containerd"
+### 5.7 Restart Services
 
-### 4. Restart Services
+Start containerd first:
 
-Start containerd with new configuration:
-
+```bash
 sudo systemctl start containerd
+```
 
-Purpose: Launch containerd using the updated config pointing to LVM storage.
+Then start Docker:
 
-Start Docker daemon:
-
+```bash
 sudo systemctl start docker
+```
 
-Purpose: Launch Docker which will now use /mnt/docker-data as its data root.
+Check service status:
 
-### 5. Verify Migration Success
+```bash
+sudo systemctl status containerd docker
+```
 
-Check Docker's current storage location:
+### 5.8 Verify Migration
 
+Verify Docker storage location:
+
+```bash
 docker info | grep "Docker Root Dir"
+```
 
-Expected output: Docker Root Dir: /mnt/docker-data
+Expected output: `Docker Root Dir: /mnt/docker-data`
 
-Check that containerd overlays are using LVM path:
+Verify containerd overlays are using LVM path:
 
+```bash
 mount | grep overlay | head -5
+```
 
-Purpose: Examine active overlay mounts. All lowerdir and upperdir paths should show /mnt/docker-data/containerd/... not /var/lib/containerd/...
+All `lowerdir` and `upperdir` paths should show `/mnt/docker-data/containerd/...` not `/var/lib/containerd/...`
 
-Check that no containerd paths remain on root disk:
+Verify no containerd paths remain on root disk:
 
+```bash
 mount | grep overlay | grep -v "/mnt/docker-data"
+```
 
-Expected output: nothing. Any output indicates containerd still writing to root disk.
+Expected output: nothing.
 
-Check disk usage on root filesystem:
+Check root disk usage (should be stable):
 
+```bash
 df -h /
+```
 
-Purpose: Verify root disk usage is stable and not increasing.
+Check LVM volume usage (should increase as images are pulled):
 
-Check disk usage on LVM volume:
-
+```bash
 df -h /mnt/docker-data
+```
 
-Purpose: Confirm LVM volume is being used for container storage and showing increased usage after pulling images.
+### 5.9 Test Functionality
 
-### 6. Test Functionality
+Pull a test image:
 
-Pull a test image to verify storage works:
-
+```bash
 docker pull alpine:latest
-
-Purpose: Test that Docker can pull images using the new storage location. Monitor df -h during this operation to ensure root disk does not increase.
+```
 
 Run a test container:
 
+```bash
 docker run --rm alpine echo "Storage migration successful"
+```
 
-Purpose: Verify containers can start and run correctly with the new storage configuration.
+List images to confirm they are accessible:
 
-### 7. Clean Up
+```bash
+docker images
+```
 
-After confirming everything works correctly for 24-48 hours, remove the backup:
+## 6. Cleanup
 
+After confirming everything works correctly for 24-48 hours, remove the backups to free root disk space:
+
+```bash
+sudo rm -rf /var/lib/docker.bak
 sudo rm -rf /var/lib/containerd.bak
-
-Purpose: Free up space on root disk by removing the old containerd data backup.
+```
 
 Verify root disk space recovered:
 
+```bash
 df -h /
+```
 
-Purpose: Confirm that removing the backup increased available space on root disk.
+## 7. Monitoring Commands
 
-### 8. Monitoring Commands
+Monitor root disk usage in real-time:
 
-Watch root disk usage in real-time:
+```bash
+watch -n1 df -h /
+```
 
-watch -n1 df -h
+Monitor LVM disk usage in real-time:
+
+```bash
+watch -n1 df -h /mnt/docker-data
+```
 
 Check all active overlay mounts with details:
 
+```bash
 cat /proc/mounts | grep overlay
+```
 
-Purpose: View complete overlay mount information including lowerdir, upperdir, and workdir paths. This is the most reliable way to confirm where overlay data resides.
+Check Docker storage breakdown:
 
+```bash
+docker system df -v
+```
 
-## Key Lessons
+## 8. Troubleshooting
 
-1. Docker's data-root setting only affects /var/lib/docker. Containerd data at /var/lib/containerd must be moved separately.
+### Rollback to previous configuration
 
-2. Overlay mounts reveal the true storage location. Always check mount | grep overlay after configuration changes.
+If migration fails, rollback using backups:
+
+```bash
+sudo systemctl stop docker containerd
+sudo rm -rf /var/lib/docker /var/lib/containerd
+sudo mv /var/lib/docker.bak /var/lib/docker
+sudo mv /var/lib/containerd.bak /var/lib/containerd
+sudo systemctl start containerd docker
+```
+
+## 9. Key Lessons
+
+1. Docker's `data-root` setting only affects `/var/lib/docker`. Containerd data at `/var/lib/containerd` must be moved separately.
+
+2. Overlay mounts reveal the true storage location. Always check `mount | grep overlay` after configuration changes.
 
 3. Both Docker and containerd must be stopped before moving data to prevent file corruption.
 
-4. The LVM volume must be at least as large as the combined data from /var/lib/docker and /var/lib/containerd. In this case, both disks were 20GB which is sufficient but does not allow for much growth.
+4. The LVM volume must be at least as large as the combined data from `/var/lib/docker` and `/var/lib/containerd`.
 
-5. Regular monitoring with df -h and mount | grep overlay helps detect storage issues early.
+5. Regular monitoring with `df -h` and `mount | grep overlay` helps detect storage issues early.
 
-## Prevention
+6. The `rsync` command with `-avxP` flags preserves permissions, copies recursively, stays within filesystem boundaries, and shows progress.
+
+## 10. Prevention
 
 To avoid this issue in the future:
 
 - Always configure both Docker and containerd storage paths when provisioning a new server
 - Use LVM for all container storage to allow future expansion
 - Monitor disk usage with automated alerts when usage exceeds 80 percent
-- Run docker system prune -a periodically to remove unused images and layers
-- Store containerd snapshots on separate volume from Docker metadata for better performance and management
+- Run `docker system prune -a` periodically to remove unused images and layers
+- Store containerd snapshots on a separate volume from Docker metadata for better performance and management
+- Include both `/var/lib/docker` and `/var/lib/containerd` in backup strategies
+
+## Appendix A: Quick Reference Commands
+
+| Operation | Command |
+|-----------|---------|
+| Check disk usage | `df -h` |
+| Check block devices | `lsblk` |
+| Check LVM volumes | `lvs` |
+| Check LVM volume groups | `vgs` |
+| Check overlay mounts | `mount \| grep overlay` |
+| Check Docker storage root | `docker info \| grep "Root Dir"` |
+| Check Docker disk usage | `docker system df` |
+| Clean unused Docker data | `docker system prune -a` |
