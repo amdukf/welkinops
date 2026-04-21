@@ -1,4 +1,4 @@
-# Useful gpg commands
+# GPG commands
 
 ```
 gpg --full-generate-key
