@@ -18,7 +18,6 @@ theme:
     - content.code.copy
     - navigation.footer
     - content.action.edit
-
   palette:
     - scheme: default
       toggle:
