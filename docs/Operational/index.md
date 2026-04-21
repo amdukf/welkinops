@@ -18,4 +18,4 @@ Keep it simple. Keep it useful.
 - [Git User chaning in local and global](guclg.md)
 - [Docker /var/lib/docker migration](docker-migrate.md)
 - [Gitea backup restore](gitea-restore.md)
-- [gpg commands](gpg-commands.md)
+- [GPG commands](gpg-commands.md)
