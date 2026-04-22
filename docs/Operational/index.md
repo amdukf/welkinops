@@ -19,3 +19,5 @@ Keep it simple. Keep it useful.
 - [Docker /var/lib/docker migration](docker-migrate.md)
 - [Gitea backup restore](gitea-restore.md)
 - [GPG commands](gpg-commands.md)
+- [Install SSL/TLS Certificate](cert.md)
+
