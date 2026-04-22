@@ -46,5 +46,6 @@ jobs:
             sh -c "echo '${{ vars.OAUTH_EMAILS }}' > /config/emails.txt"
 
           docker image rm ${{ secrets.REGISTRY_URL }}/amdukf/welkinops:latest || true
+          docker compose -p welkinops down || true
           docker compose -f docker-compose-ecorp.yaml up -d
 
