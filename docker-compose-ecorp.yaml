@@ -5,9 +5,9 @@ services:
     restart: unless-stopped
     ports:
       - "127.0.0.1:8006:80"
-    labels:
-      - "com.centurylinklabs.watchtower.enable=true"
-      - "com.centurylinklabs.watchtower.scope=registryA"
+    # labels:
+    #   - "com.centurylinklabs.watchtower.enable=true"
+    #   - "com.centurylinklabs.watchtower.scope=registryA"
   oauth2-proxy:
     image: quay.io/oauth2-proxy/oauth2-proxy:v7.14.0
     container_name: oauth2-proxy
