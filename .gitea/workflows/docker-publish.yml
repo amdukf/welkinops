@@ -9,6 +9,7 @@ on:
       - 'mkdocs-ecorp.yml'
       - '.gitea/workflows/docker-publish.yml'
       - 'Dockerfile.ecorp'
+      - 'docker-compose-ecorp.yaml'
 
 jobs:
   build-and-push:
