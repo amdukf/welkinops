@@ -35,16 +35,16 @@ jobs:
         run: |
           docker push ${{ secrets.REGISTRY_URL }}/amdukf/welkinops:latest
 
-- name: Deploy Docker compose
-  run: |
-    cd welkinops
-    echo "${{ secrets.OAUTH_ENV }}" > .env
-    
-    cat > emails.txt << 'EOF'
-    ${{ vars.OAUTH_EMAILS }}
-    EOF
+      - name: Deploy Docker compose
+        run: |
+          cd welkinops
+          echo "${{ secrets.OAUTH_ENV }}" > .env
+          
+          cat > emails.txt << 'EOF'
+          ${{ vars.OAUTH_EMAILS }}
+          EOF
 
-    docker compose -f docker-compose-ecorp.yaml down || true
-    docker image rm ${{ secrets.REGISTRY_URL }}/amdukf/welkinops:latest || true
-    docker compose -f docker-compose-ecorp.yaml up -d
+          docker compose -f docker-compose-ecorp.yaml down || true
+          docker image rm ${{ secrets.REGISTRY_URL }}/amdukf/welkinops:latest || true
+          docker compose -f docker-compose-ecorp.yaml up -d
 
