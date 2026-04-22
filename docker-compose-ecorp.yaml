@@ -17,7 +17,7 @@ services:
     env_file:
       - .env
     volumes:
-      - welkinops-config:/etc/oauth2-proxy
+      - welkinops-config/emails.txt:/etc/oauth2-proxy/emails.txt
 
 volumes:
   welkinops-config:
