@@ -39,6 +39,6 @@ jobs:
         run: |
           cd welkinops
           echo "${{ secrets.REGISTRY_URL }}" > .env
-          echo "${{ variables.OAUTH_EMAILS }}" > emails.txt
+          echo "${{ vars.OAUTH_EMAILS }}" > emails.txt
           docker image rm ${{ secrets.REGISTRY_URL }}/amdukf/welkinops:latest
           docker compose -f docker-compose-ecorp.yaml up -d
