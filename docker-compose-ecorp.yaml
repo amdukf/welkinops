@@ -17,18 +17,8 @@ services:
     env_file:
       - .env
     volumes:
-      - ./emails.txt:/etc/oauth2-proxy/emails.txt
-  # watchtower:
-  #   image: ghcr.io/nicholas-fedor/watchtower:latest
-  #   container_name: watchtower-A
-  #   restart: unless-stopped
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #     - /root/.docker/configamdukf.json:/config.json
-  #   command:
-  #     - --label-enable
-  #     - --scope=registryA
-  #     - --cleanup
-  #     - --interval=60
-  #   labels:
-  #     - "com.centurylinklabs.watchtower.scope=registryA"
+      - welkinops-config:/etc/oauth2-proxy/emails.txt
+
+volumes:
+  welkinops-config:
+    external: false
