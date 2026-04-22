@@ -34,3 +34,8 @@ jobs:
       - name: Push image
         run: |
           docker push ${{ secrets.REGISTRY_URL }}/amdukf/welkinops:latest
+
+      - name: Deploy Docker compose
+        run: |
+          echo "${{ secrets.REGISTRY_URL }}" > .env
+          docker compose -f docker-compose-ecorp.yaml up -d
