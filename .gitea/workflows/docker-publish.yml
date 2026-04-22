@@ -38,6 +38,7 @@ jobs:
       - name: Deploy or update
         run: |
           cd welkinops
+          echo "${{ secrets.OAUTH_ENV }}" > .env
           docker volume inspect welkinops-config >/dev/null 2>&1 || docker volume create welkinops-config
 
           docker run --rm -v welkinops-config:/config alpine \
