@@ -6,10 +6,10 @@ on:
       - main
     paths:
       - 'docs/**'
-      - 'mkdocs-ecorp.yml'
+      - 'infra/mkdocs-configs/mkdocs-ecorp.yml'
       - '.gitea/workflows/docker-publish.yml'
-      - 'Dockerfile.ecorp'
-      - 'docker-compose-ecorp.yaml'
+      - 'infra/dockerfiles/Dockerfile.ecorp'
+      - 'infra/compose-files/docker-compose-ecorp.yaml'
 
 jobs:
   build-and-push:
@@ -30,7 +30,7 @@ jobs:
       - name: Build image
         run: |
           cd welkinops
-          docker build -f Dockerfile.ecorp -t ${{ secrets.REGISTRY_URL }}/amdukf/welkinops:latest .
+          docker build -f dockerfiles/Dockerfile.ecorp -t ${{ secrets.REGISTRY_URL }}/amdukf/welkinops:latest .
 
       - name: Push image
         run: |
@@ -38,7 +38,7 @@ jobs:
 
       - name: Deploy or update
         run: |
-          cd welkinops
+          cd welkinops/compose-files
           echo "${{ secrets.OAUTH_ENV }}" > .env
           docker volume inspect welkinops-config >/dev/null 2>&1 || docker volume create welkinops-config
 
