@@ -47,5 +47,5 @@ jobs:
 
           docker image rm ${{ secrets.REGISTRY_URL }}/amdukf/welkinops:latest || true
           docker compose -p welkinops down || true
-          docker compose -f docker-compose-ecorp.yaml up -d
+          docker compose -f docker-compose-ecorp.yaml up --force-recreate -d
 
