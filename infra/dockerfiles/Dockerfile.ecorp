@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Copy the MkDocs projects to the working directory
 COPY infra/mkdocs-configs/mkdocs-ecorp.yml .
-COPY docs .
+COPY docs ./docs
 
 # Build the MkDocs project
 RUN mkdocs build --site-dir public --config-file mkdocs-ecorp.yml
