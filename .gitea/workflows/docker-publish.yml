@@ -43,7 +43,7 @@ jobs:
           docker volume inspect welkinops-config >/dev/null 2>&1 || docker volume create welkinops-config
 
           docker run --rm -v welkinops-config:/config alpine \
-            sh -c "echo '${{ vars.OAUTH_EMAILS }}' > /config/emails.txt"
+            sh -c "echo ${{ vars.OAUTH_EMAILS }} > /config/emails.txt"
 
           docker image rm ${{ secrets.REGISTRY_URL }}/amdukf/welkinops:latest || true
           docker compose -p welkinops down || true
