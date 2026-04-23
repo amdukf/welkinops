@@ -5,7 +5,7 @@ FROM squidfunk/mkdocs-material as package-installation
 WORKDIR /app
 
 # Copy the MkDocs projects to the working directory
-COPY ../mkdocs-configs.yml/mkdocs-ecorp.yml ../docs  .
+COPY ../mkdocs-configs/mkdocs-ecorp.yml ../../docs/  .
 
 # Build the MkDocs project
 RUN mkdocs build --site-dir public --config-file mkdocs-ecorp.yml
