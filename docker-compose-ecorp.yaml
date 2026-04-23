@@ -21,4 +21,4 @@ services:
 
 volumes:
   welkinops-config:
-    external: false
+    external: true
