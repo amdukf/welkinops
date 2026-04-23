@@ -30,7 +30,7 @@ jobs:
       - name: Build image
         run: |
           cd welkinops
-          docker build -f dockerfiles/Dockerfile.ecorp -t ${{ secrets.REGISTRY_URL }}/amdukf/welkinops:latest .
+          docker build -f infra/dockerfiles/Dockerfile.ecorp -t ${{ secrets.REGISTRY_URL }}/amdukf/welkinops:latest .
 
       - name: Push image
         run: |
@@ -38,7 +38,7 @@ jobs:
 
       - name: Deploy or update
         run: |
-          cd welkinops/compose-files
+          cd welkinops/infra/compose-files
           echo "${{ secrets.OAUTH_ENV }}" > .env
           docker volume inspect welkinops-config >/dev/null 2>&1 || docker volume create welkinops-config
 
