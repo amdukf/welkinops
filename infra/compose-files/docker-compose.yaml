@@ -1,0 +1,34 @@
+services:
+  mkdocs:
+    image: amirmkh/welkinops:latest
+    container_name: welkinops-docs
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8006:80"
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+      - "com.centurylinklabs.watchtower.scope=registryA"
+  oauth2-proxy:
+    image: quay.io/oauth2-proxy/oauth2-proxy:v7.14.0
+    container_name: oauth2-proxy
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:4180:4180"
+    env_file:
+      - .env
+    volumes:
+      - ./emails.txt:/etc/oauth2-proxy/emails.txt
+  watchtower:
+    image: ghcr.io/nicholas-fedor/watchtower:latest
+    container_name: watchtower-A
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /root/.docker/configamdukf.json:/config.json
+    command:
+      - --label-enable
+      - --scope=registryA
+      - --cleanup
+      - --interval=60
+    labels:
+      - "com.centurylinklabs.watchtower.scope=registryA"
