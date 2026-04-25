@@ -17,7 +17,7 @@ gpg --symmetric private.key
 ```
 gpg --import public.key
 gpg --import private.key
-gpg -list-secret-keys
+gpg --list-secret-keys
 ```
 ### for encrypting:
 ```
