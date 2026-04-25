@@ -3,7 +3,7 @@
 ```
 gpg --full-generate-key
 
-gpg -list-keys
+gpg --list-keys
 
 gpg --export -a "amdukf@gmail.com" > public.key
 
