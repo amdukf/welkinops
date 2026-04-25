@@ -8,9 +8,10 @@ gpg --list-keys
 gpg --export -a "amdukf@gmail.com" > public.key
 
 gpg --export-secret-keys -a "amdukf@gmail.com" > private.key
+```
 
-for better secutry, we can encrypt private key
-
+For better secutry, we can encrypt private key
+```
 gpg --symmetric private.key
 ```
 ### for importing:
