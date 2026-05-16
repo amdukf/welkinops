@@ -9,7 +9,7 @@ on:
       - 'infra/mkdocs-configs/mkdocs-ecorp.yml'
       - '.gitea/workflows/docker-publish.yml'
       - 'infra/dockerfiles/Dockerfile.ecorp'
-      - 'infra/compose-files/docker-compose-ecorp.yaml'
+      - 'infra/compose-files/compose.yml'
 
 jobs:
   build-and-push:
@@ -39,16 +39,6 @@ jobs:
       - name: Deploy or update
         run: |
           cd welkinops/infra/compose-files
-          echo "${{ secrets.OAUTH_ENV }}" > .env
-          docker volume inspect welkinops-config >/dev/null 2>&1 || docker volume create welkinops-config
-
-          docker run --rm \
-            -e OAUTH_EMAILS="${{ vars.OAUTH_EMAILS }}" \
-            -v welkinops-config:/config alpine:latest sh -c '
-              printf "%s\n" "$OAUTH_EMAILS" > /config/emails.txt
-            '
-
           docker image rm ${{ secrets.REGISTRY_URL }}/amdukf/welkinops:latest || true
           docker compose -p welkinops down || true
-          docker compose -f docker-compose-ecorp.yaml up --force-recreate -d
-
+          docker compose -f compose.yml up --force-recreate -d

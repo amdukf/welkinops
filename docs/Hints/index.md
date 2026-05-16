@@ -56,7 +56,6 @@ with this, the harbor put the images in the trash if we want to delete them from
 **Title:** Get backup from jira  
 **Solution:** If you want to get backup from jira, at first get backup from the jira system panel, the get a full backup from the PVC
 
-
 **Problem:** Harbor Docker Cache problem  
 **Solution:** If we have problem with harbor docker cache, (The ci or anything couldn't pull the image and say not found) use the full image tag, for example use python 3.9.1-slim instead of python:3.9
 
