@@ -59,7 +59,6 @@ with this, the harbor put the images in the trash if we want to delete them from
 **Problem:** Harbor Docker Cache problem  
 **Solution:** If we have problem with harbor docker cache, (The ci or anything couldn't pull the image and say not found) use the full image tag, for example use python 3.9.1-slim instead of python:3.9
 
-
 **Title:** Creating user for argocd  
 **Solution:** If you want to create a readonly user in argocd, at first you should change the cm section in the helm chart of argocd, then you should exec to the pod of argocd (argocd-server) and after that change the password of the cluster.
 

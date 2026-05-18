@@ -6,10 +6,10 @@ on:
       - main
     paths:
       - 'docs/**'
-      - 'infra/mkdocs-configs/mkdocs-ecorp.yml'
+      - 'infra/mkdocs-configs/mkdocs-tcorp.yml'
       - '.gitea/workflows/docker-publish.yml'
-      - 'infra/dockerfiles/Dockerfile.ecorp'
-      - 'infra/compose-files/compose.yml'
+      - 'infra/dockerfiles/Dockerfile.tcorp'
+      - 'infra/compose-files/compose-tcorp.yml'
 
 jobs:
   build-and-push:
