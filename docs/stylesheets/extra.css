@@ -1,0 +1,44 @@
+/* Regular */
+@font-face {
+  font-family: "Roboto";
+  src: url("../assets/fonts/roboto/Roboto-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Medium */
+@font-face {
+  font-family: "Roboto";
+  src: url("../assets/fonts/roboto/Roboto-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* Bold */
+@font-face {
+  font-family: "Roboto";
+  src: url("../assets/fonts/roboto/Roboto-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* Italic */
+@font-face {
+  font-family: "Roboto";
+  src: url("../assets/fonts/roboto/Roboto-RegularItalic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Roboto Mono";
+  src: url("../assets/fonts/roboto/RobotoMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Apply globally */
+:root {
+  --md-text-font: "Roboto";
+  --md-code-font: "Roboto Mono";
+}
