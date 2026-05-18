@@ -30,7 +30,7 @@ jobs:
       - name: Build image
         run: |
           cd welkinops
-          docker build -f infra/dockerfiles/Dockerfile.ecorp -t ${{ secrets.REGISTRY_URL }}/amdukf/welkinops:latest .
+          docker build -f infra/dockerfiles/Dockerfile.tcorp -t ${{ secrets.REGISTRY_URL }}/amdukf/welkinops:latest .
 
       - name: Push image
         run: |
@@ -41,4 +41,4 @@ jobs:
           cd welkinops/infra/compose-files
           docker image rm ${{ secrets.REGISTRY_URL }}/amdukf/welkinops:latest || true
           docker compose -p welkinops down || true
-          docker compose -f compose.yml up --force-recreate -d
+          docker compose -f compose-tcorp.yml up --force-recreate -d
