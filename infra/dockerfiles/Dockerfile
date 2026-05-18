@@ -7,6 +7,7 @@ WORKDIR /app
 # Copy the MkDocs project to the working directory
 COPY infra/mkdocs-configs/mkdocs.yml .
 COPY docs ./docs
+COPY .git .git
 
 # Build the MkDocs project
 RUN mkdocs build --site-dir public
