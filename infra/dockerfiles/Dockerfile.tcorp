@@ -5,12 +5,12 @@ FROM squidfunk/mkdocs-material as package-installation
 WORKDIR /app
 
 # Copy the MkDocs projects to the working directory
-COPY infra/mkdocs-configs/mkdocs-ecorp.yml .
+COPY infra/mkdocs-configs/mkdocs-tcorp.yml .
 COPY docs ./docs
 COPY .git .git
 
 # Build the MkDocs project
-RUN mkdocs build --site-dir public --config-file mkdocs-ecorp.yml
+RUN mkdocs build --site-dir public --config-file mkdocs-tcorp.yml
 
 # Use the official Nginx image
 FROM nginx:alpine
@@ -23,4 +23,3 @@ EXPOSE 80
 
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
-

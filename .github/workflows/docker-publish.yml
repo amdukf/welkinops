@@ -6,9 +6,9 @@ on:
       - main  # or your default branch
     paths:
       - 'docs/**'
-      - 'mkdocs.yml'
+      - 'infra/mkdocs-configs/mkdocs.yml'
       - '.github/workflows/docker-publish.yml'
-      - 'Dockerfile'
+      - 'infra/dockerfiles/Dockerfile'
 
 jobs:
   build-and-push:
@@ -31,6 +31,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ./Dockerfile
+          file: ./infra/dockerfiles/Dockerfile
           push: true
           tags: amirmkh/welkinops:latest
