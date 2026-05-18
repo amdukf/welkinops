@@ -23,4 +23,4 @@ services:
       - --cleanup
       - --interval=15
     labels:
-      - "com.centurylinklabs.watchtower.scope=welkinops
+      - "com.centurylinklabs.watchtower.scope=welkinops"
