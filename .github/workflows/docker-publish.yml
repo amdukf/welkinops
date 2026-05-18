@@ -3,7 +3,7 @@ name: Build and Publish MkDocs Docker Image
 on:
   push:
     branches:
-      - main  # or your default branch
+      - main
     paths:
       - 'docs/**'
       - 'infra/mkdocs-configs/mkdocs.yml'

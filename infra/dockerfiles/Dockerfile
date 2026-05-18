@@ -5,7 +5,8 @@ FROM squidfunk/mkdocs-material as package-installation
 WORKDIR /app
 
 # Copy the MkDocs project to the working directory
-COPY . .
+COPY infra/mkdocs-configs/mkdocs.yml .
+COPY docs ./docs
 
 # Build the MkDocs project
 RUN mkdocs build --site-dir public
@@ -21,4 +22,3 @@ EXPOSE 80
 
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
-
