@@ -1,7 +1,7 @@
-# ================================
-# Kubernetes Emergency / Cert Fix Runbook (kubeadm)
-# Use this when cluster has TLS / certificate / API issues
-# ================================
+# Kubernetes TLS/Certificate issues and renew
+
+#### Use this when cluster has TLS / certificate issues
+
 
 ```
 kubeadm certs check-expiration

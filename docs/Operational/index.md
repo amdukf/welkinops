@@ -20,4 +20,4 @@ Keep it simple. Keep it useful.
 - [Gitea backup restore](gitea-restore.md)
 - [GPG commands](gpg-commands.md)
 - [Install SSL/TLS Certificate](cert.md)
-- [Kubernetes TLS / Certificate issues and renew](k8s-tls-issue.md)
+- [Kubernetes TLS/Certificate issues and renew](k8s-tls-issue.md)
