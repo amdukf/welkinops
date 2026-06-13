@@ -19,7 +19,7 @@ dependencies:
     version: 5.x
     repository: "https://argoproj.github.io/argo-helm"
 ```
-1. Create a file named values.yaml in the argocd directory with the following content:
+4. Create a file named values.yaml in the argocd directory with the following content:
 ```
 argo-cd:
   configs:
@@ -169,18 +169,18 @@ argo-cd:
   applicationSet:
     replicas: 1
 ```
-1. Install the ArgoCD using the following command:
+5. Install the ArgoCD using the following command:
 ```
 cd [name]-stage-cluster-apps/argocd
 helm dependency build
 helm install argocd . -n argocd --create-namespace
 ```
-1. Find the ArgoCD server password using the following command:
+6. Find the ArgoCD server password using the following command:
 ```
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 ```
-1. Access the ArgoCD server using the following command:
+7. Access the ArgoCD server using the following command:
 ```
 kubectl port-forward svc/argocd-server -n argocd 8080:80
 ```
-1. Login to the ArgoCD server using ```admin``` as the username and the password from step 6.
+8. Login to the ArgoCD server using ```admin``` as the username and the password from step 6.
