@@ -1,7 +1,9 @@
 # Shadowsocks connection from another server
 
 Server A: your shadowsocks-libev server
+
 Server B: another server
+
 Goal: on Server B, route traffic through Server A’s SOCKS5 proxy provided by Shadowsocks
 
 ```
