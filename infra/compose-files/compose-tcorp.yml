@@ -1,6 +1,6 @@
 services:
   mkdocs:
-    image: git.ecorp.kalekabab.ir/amdukf/welkinops:latest
+    image: git.tyrell.ir/amdukf/welkinops:latest
     container_name: welkinops-docs
     restart: unless-stopped
     ports:
