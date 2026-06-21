@@ -21,3 +21,4 @@ Keep it simple. Keep it useful.
 - [GPG commands](gpg-commands.md)
 - [Install SSL/TLS Certificate](cert.md)
 - [Kubernetes TLS/Certificate issues and renew](k8s-tls-issue.md)
+- [Shadowsocks connection from another server](shadowsocks.md)
